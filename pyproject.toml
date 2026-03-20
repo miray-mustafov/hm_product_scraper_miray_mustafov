@@ -9,4 +9,5 @@ dependencies = [
 [dependency-groups]
 dev = [
     "commitizen>=4.13.9",
+    "directory-tree>=1.0.0",
 ]
