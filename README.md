@@ -6,6 +6,7 @@
 * [Project Overview](#project-overview)
 * [Folder Structure](#folder-structure)
 * [Setup](#setup)
+* [Useful Stuff](#useful-stuff)
 
 ---
 
@@ -83,7 +84,15 @@ You can use AI tools, but we will ask questions around **scrapy** and the **prob
 ## Folder Structure
 
 ```shell
-todo
+root_folder/
+└── src/
+    └── hm_scraper/
+        ├── spiders/            # Extract/Scrape data
+        │   └── hm_products.py
+        ├── __init__.py
+        ├── items.py            # define templates, how our product would look
+        ├── pipelines.py        # Transform/Load data
+        └── settings.py
 ```
 
 helper terminal command for generating the tree:
@@ -138,7 +147,18 @@ uv sync
 ### Run the app:
 
 ```shell
-uv run app
+todo
 ```
 
 [↑ Back to Top](#table-of-contents)
+
+---
+
+## Useful Stuff
+
+How to initialize a scrapy project:  
+```scrapy startproject <project_name>```
+
+[↑ Back to Top](#table-of-contents)
+
+---
