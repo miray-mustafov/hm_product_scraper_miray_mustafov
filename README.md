@@ -12,7 +12,7 @@
 
 ## Task Description
 
->You can use AI tools, but we will ask questions around scrapy and the problems you faced during the process 
+> You can use AI tools, but we will ask questions around scrapy and the problems you faced during the process
 
 #### 1. Introduction
 
@@ -32,7 +32,6 @@
 - the navigation to the product page
 - extraction of the data
 - Output of the parsed data needs to be in a JSON file.
-
 
 <br>
 
@@ -78,12 +77,14 @@ Tech: Scrapy, todo
 
 #### Key Technical Implementations:
 
-- todo
-- todo
+- Avoid being blocked when requesting sites with a bot:
+    - Avoid using the same user agent by looping through many when requesting:  
+      see [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py)
+    - Avoid using the same IP address by rotating them using proxy servers:   
+      see [get_proxy_url](hm_scraper/hm_scraper/spiders/utils.py)
 
 #### Upcoming Features:
 
-- todo
 - todo
 
 [↑ Back to Top](#table-of-contents)
@@ -104,9 +105,10 @@ root_folder/
         └── settings.py
 ```
 
-Helper terminal command for generating the tree:  
+Helper terminal command for generating the tree:
+
 ```
-uv run python -m directory_tree -I temporary media __init__.py __pycache__ *.*
+uv run python -m directory_tree -I temporary .venv media __pycache__
 ```
 
 [↑ Back to Top](#table-of-contents)
@@ -114,6 +116,7 @@ uv run python -m directory_tree -I temporary media __init__.py __pycache__ *.*
 ---
 
 ## Setup
+
 <span style="color: #888; font-size: 12px;">Local setup for Windows OS</span>
 
 #### Open the terminal, navigate to a desired folder, and pull the project:
@@ -121,6 +124,7 @@ uv run python -m directory_tree -I temporary media __init__.py __pycache__ *.*
 ```shell
 git clone git@github.com:miray-mustafov/hm_product_scraper_miray_mustafov.git
 ```
+
 <br>
 
 #### Navigate to the root level of the project:
@@ -128,6 +132,7 @@ git clone git@github.com:miray-mustafov/hm_product_scraper_miray_mustafov.git
 ```shell
 cd hm_product_scraper_miray_mustafov
 ```
+
 <br>
 
 #### Configure and activate python virtual environment
@@ -144,6 +149,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 uv venv --python 3.13
 .venv\Scripts\activate
 ```
+
 <br>
 
 #### Install dependencies:
@@ -151,9 +157,11 @@ uv venv --python 3.13
 ```shell
 uv sync
 ```
+
 <br>
 
 #### Create a copy of `.env.example` file and name it `.env`:
+
 <br>
 
 #### Run the app:
@@ -162,7 +170,6 @@ uv sync
 todo
 ```
 
-
 [↑ Back to Top](#table-of-contents)
 
 ---
@@ -170,12 +177,21 @@ todo
 ## Useful Stuff
 
 - How to initialize a scrapy project:  
-```scrapy startproject <project_name>```
+  ```scrapy startproject <project_name>```
 
 
 - How to initialize a scrapy spider:  
-```scrapy genspider <spider_name> <your.website.com>```  
-```scrapy genspider product_spider hm.com```
+  ```scrapy genspider <spider_name> <your.website.com>```  
+  ```scrapy genspider product_spider hm.com```
+
+
+- How to start scrapy shell:  
+  ```scrapy shell```
+
+
+- How to request a URL in Scrapy shell and select elements:  
+  ```fetch('<your_url>')``` creates response object  
+  ```products = response.css('product-item')```
 
 [↑ Back to Top](#table-of-contents)
 
