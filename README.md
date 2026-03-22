@@ -173,8 +173,9 @@ todo
 ```scrapy startproject <project_name>```
 
 
-- Create to initialize a scrapy spider (bot):  
-```scrapy startproject <project_name>```
+- How to initialize a scrapy spider:  
+```scrapy genspider <spider_name> <your.website.com>```  
+```scrapy genspider product_spider hm.com```
 
 [↑ Back to Top](#table-of-contents)
 
