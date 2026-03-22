@@ -12,7 +12,9 @@
 
 ## Task Description
 
-### 1. Introduction
+>You can use AI tools, but we will ask questions around scrapy and the problems you faced during the process 
+
+#### 1. Introduction
 
 - As part of the team, you'll be responsible for keeping millions of products up to date.
   Using the python Scrapy framework, go to https://www2.hm.com/bg_bg/productpage.1274171042.html
@@ -23,13 +25,18 @@
     - price
     - reviews data
 
-### 2. The solution should include:
+<br>
+
+#### 2. The solution should include:
 
 - the navigation to the product page
 - extraction of the data
 - Output of the parsed data needs to be in a JSON file.
 
-### 3. The following steps need to be implemented:
+
+<br>
+
+#### 3. The following steps need to be implemented:
 
 - request to load the page located at https://www2.hm.com/bg_bg/productpage.1274171042.html
 - parse of the HTML
@@ -51,14 +58,12 @@
         }
         ```
 
-### 4. Send solution
+<br>
+
+#### 4. Send solution
 
 - Provide the solution as a link to GitHub/GitLab repository to  
   `anton.popov@edited.com` and `stanislav.milchev@edited.com`
-
-### *NOTE
-
-You can use AI tools, but we will ask questions around **scrapy** and the **problems you faced during the process**
 
 [↑ Back to Top](#table-of-contents)
 
@@ -66,16 +71,20 @@ You can use AI tools, but we will ask questions around **scrapy** and the **prob
 
 ## Project Overview
 
-* **Summary**: Web scraper for extracting products data from H&M's website
-* **Tech**: Scrapy, `todo`
+<span style="color: #888; font-size: 12px;">
+Summary: Web scraper for extracting products data from H&M's website <br>
+Tech: Scrapy, todo
+</span><br><br>
 
-### Key Technical Implementations:
+#### Key Technical Implementations:
 
-`todo`
+- todo
+- todo
 
-### Upcoming Features & Scale-Up Plan:
+#### Upcoming Features:
 
-`todo`
+- todo
+- todo
 
 [↑ Back to Top](#table-of-contents)
 
@@ -95,9 +104,8 @@ root_folder/
         └── settings.py
 ```
 
-helper terminal command for generating the tree:
-
-```shell
+Helper terminal command for generating the tree:  
+```
 uv run python -m directory_tree -I temporary media __init__.py __pycache__ *.*
 ```
 
@@ -106,49 +114,54 @@ uv run python -m directory_tree -I temporary media __init__.py __pycache__ *.*
 ---
 
 ## Setup
+<span style="color: #888; font-size: 12px;">Local setup for Windows OS</span>
 
-Local setup for Windows OS
-
-### Open the terminal, navigate to a desired folder, and pull the project:
+#### Open the terminal, navigate to a desired folder, and pull the project:
 
 ```shell
 git clone git@github.com:miray-mustafov/hm_product_scraper_miray_mustafov.git
 ```
+<br>
 
-### Navigate to the root level of the project:
+#### Navigate to the root level of the project:
 
 ```shell
 cd hm_product_scraper_miray_mustafov
 ```
+<br>
 
-### Configure and activate python virtual environment
+#### Configure and activate python virtual environment
 
-If uv not installed:
+- If uv not installed:
 
 ```
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Then:
+- Then:
 
 ```shell
 uv venv --python 3.13
 .venv\Scripts\activate
 ```
+<br>
 
-### Install dependencies:
+#### Install dependencies:
 
 ```shell
 uv sync
 ```
+<br>
 
-### Create a copy of `.env.example` file and name it `.env`:
+#### Create a copy of `.env.example` file and name it `.env`:
+<br>
 
-### Run the app:
+#### Run the app:
 
 ```shell
 todo
 ```
+
 
 [↑ Back to Top](#table-of-contents)
 
@@ -156,7 +169,11 @@ todo
 
 ## Useful Stuff
 
-How to initialize a scrapy project:  
+- How to initialize a scrapy project:  
+```scrapy startproject <project_name>```
+
+
+- Create to initialize a scrapy spider (bot):  
 ```scrapy startproject <project_name>```
 
 [↑ Back to Top](#table-of-contents)
