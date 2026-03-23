@@ -12,7 +12,7 @@
 
 ## Task Description
 
-> You can use AI tools, but we will ask questions around scrapy and the problems you faced during the process
+> 🤖 You can use AI tools, but we will ask questions around scrapy and the problems you faced during the process
 
 #### 1. Introduction
 
