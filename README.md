@@ -81,7 +81,7 @@ Tech: Scrapy
     - Avoid using the same user agent by looping through many when requesting:  
       see [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py)
     - Avoid using the same IP address by rotating them using proxy servers:   
-      see [get_proxy_url](hm_scraper/hm_scraper/spiders/utils.py)
+      see [todo]()
 
 - PyCharm debugger configured for optimal debugging: `hm_scraper`
 
@@ -105,7 +105,6 @@ hm_product_scraper_miray_mustafov/
 │   │   ├── settings.py             # global configurations for the app
 │   │   └── spiders/                
 │   │       ├── product_spider.py   # main spider to crawl and parse H&M products
-│   │       └── utils.py            # helper functions (e.g., proxy URL generation)
 │   ├── results/                    # place for the export results (JSON, CSV, etc.)
 │   └── scrapy.cfg                  
 ```

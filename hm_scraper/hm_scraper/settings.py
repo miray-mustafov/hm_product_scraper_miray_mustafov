@@ -2,9 +2,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-PROXY_KEY = os.getenv("PROXY_KEY", "")
-PROXY_BASE_URL = os.getenv("PROXY_BASE_URL", "")
-PROXY_DOMAIN = os.getenv("PROXY_DOMAIN", "")
 
 BOT_NAME = "hm_scraper"
 
