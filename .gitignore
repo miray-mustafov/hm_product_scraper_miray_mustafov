@@ -1,4 +1,6 @@
 temporary/
+*temporary.py
+*result.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

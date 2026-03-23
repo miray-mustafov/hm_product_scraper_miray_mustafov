@@ -12,7 +12,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 PROXY_KEY = os.getenv("PROXY_KEY", "")
 PROXY_BASE_URL = os.getenv("PROXY_BASE_URL", "")
 PROXY_DOMAIN = os.getenv("PROXY_DOMAIN", "")
@@ -70,8 +69,8 @@ DOWNLOAD_DELAY = 1
 DOWNLOADER_MIDDLEWARES = {
     # "hm_scraper.middlewares.HmScraperDownloaderMiddleware": 543,
 
-    # That middleware contains 2k+ common user agents and they are looped through when do a request to try avoid block
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    # provides 2k+ common user agents, which are looped through and attached to a request until success is achieved
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,  # turn off scrapy's default user agent
     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
 }
 
@@ -110,3 +109,4 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
+FEED_EXPORT_INDENT = 2  # set the number of spaces per indent level for the JSON output

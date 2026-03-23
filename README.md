@@ -72,7 +72,7 @@
 
 <span style="color: #888; font-size: 12px;">
 Summary: Web scraper for extracting products data from H&M's website <br>
-Tech: Scrapy, todo
+Tech: Scrapy
 </span><br><br>
 
 #### Key Technical Implementations:
@@ -83,9 +83,11 @@ Tech: Scrapy, todo
     - Avoid using the same IP address by rotating them using proxy servers:   
       see [get_proxy_url](hm_scraper/hm_scraper/spiders/utils.py)
 
+- PyCharm debugger configured for optimal debugging: `hm_scraper`
+
 #### Upcoming Features:
 
-- todo
+- Configure RDBMS like PostgreSQL to store products data
 
 [↑ Back to Top](#table-of-contents)
 
@@ -94,21 +96,24 @@ Tech: Scrapy, todo
 ## Folder Structure
 
 ```shell
-root_folder/
-└── src/
-    └── hm_scraper/
-        ├── spiders/            # Extract/Scrape data
-        │   └── hm_products.py
-        ├── __init__.py
-        ├── items.py            # define templates, how our product would look
-        ├── pipelines.py        # Transform/Load data
-        └── settings.py
+hm_product_scraper_miray_mustafov/
+├── hm_scraper/                     # project source root directory (contains scrapy.cfg)
+│   ├── hm_scraper/                 # project's python module (actual app code)
+│   │   ├── items.py                # templates for how our items/products should look
+│   │   ├── middlewares.py          # hooks for modifying requests/responses
+│   │   ├── pipelines.py            # logic for processing scraped items
+│   │   ├── settings.py             # global configurations for the app
+│   │   └── spiders/                
+│   │       ├── product_spider.py   # main spider to crawl and parse H&M products
+│   │       └── utils.py            # helper functions (e.g., proxy URL generation)
+│   ├── results/                    # place for the export results (JSON, CSV, etc.)
+│   └── scrapy.cfg                  
 ```
 
 Helper terminal command for generating the tree:
 
 ```
-uv run python -m directory_tree -I temporary .venv media __pycache__
+uv run python -m directory_tree -I temporary .venv media __pycache__ __init__.py
 ```
 
 [↑ Back to Top](#table-of-contents)
@@ -164,11 +169,13 @@ uv sync
 
 <br>
 
-#### Run the app:
+#### 🚀 Run the app from `hm_product_scraper_miray_mustafov/hm_scraper`:
 
 ```shell
-todo
+uv run scrapy crawl product_spider -O results/product_data_result.json
 ```
+
+> Results will be saved here: 📂 [results](hm_scraper/results)
 
 [↑ Back to Top](#table-of-contents)
 
