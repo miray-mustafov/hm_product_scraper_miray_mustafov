@@ -3,6 +3,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+DB_PARAMS = {
+    'dialect': os.getenv('DB_DIALECT'),
+    'driver': os.getenv('DB_DRIVER'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASS'),
+    'host': os.getenv('DB_HOST'),
+    'dbname': os.getenv('DB_NAME'),
+    'port': os.getenv('DB_PORT')
+}
+
 BOT_NAME = "hm_scraper"
 
 SPIDER_MODULES = ["hm_scraper.spiders"]
@@ -69,9 +79,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    "hm_scraper.pipelines.HmScraperPipeline": 300,
-# }
+ITEM_PIPELINES = {
+   # "hm_scraper.pipelines.HmScraperPipeline": 300,
+    "hm_scraper.pipelines.SaveToRDBMSPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

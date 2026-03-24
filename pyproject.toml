@@ -3,6 +3,7 @@ name = "hm_product_scraper_miray_mustafov"
 version = "0.1.0"
 requires-python = ">=3.13, <3.14"
 dependencies = [
+    "psycopg[binary]>=3.3.3",
     "python-dotenv>=1.2.2",
     "scrapy>=2.14.2",
     "scrapy-user-agents>=0.1.1",

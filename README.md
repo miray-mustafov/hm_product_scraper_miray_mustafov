@@ -71,25 +71,35 @@
 ## Project Overview
 
 #### Summary:
+
 - Web scraper for extracting products data from H&M's website
 
 #### Tech:
-- Scrapy, 
+
+- <img src="media/scrapy_icon.svg" width="26" height="26" valign="middle">Scrapy,
+  <img src="media/postgresql_icon.svg" width="18" height="18" valign="middle"> PostgreSQL,
+  <img src="media/docker_icon.svg" width="18" height="18" valign="middle"> Docker,
 
 #### Key Technical Implementations:
 
-- **User-Agent Rotation:** Integrated [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py) that rotates between 2,000+ browser identifiers, preventing
-      fingerprinting.  
+- **User-Agent Rotation:** Integrated [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py) that rotates
+  between 2,000+ browser identifiers, preventing
+  fingerprinting.  
   <br>
 - **Proxy IP Rotation:** Integrated proxy rotation to avoid IP-based blocks.
-  - *Note:* Despite testing 3 providers, H&M's protection currently holds the line.
-  - *Status:* Ongoing development is tracked in the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
+    - *Note:* Despite testing 3 providers, H&M's protection currently holds the line.
+    - *Status:* Ongoing development is tracked in
+      the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
+      <br>
+- **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml)
+  for direct Scrapy execution and breakpoints within the IDE.  
   <br>
-- **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml) for direct Scrapy execution and breakpoints within the IDE.
+- Database: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
+  the item data in a `PostgreSQL` database running on a `Docker` container
 
 #### Upcoming Features:
 
-- Configure RDBMS like PostgreSQL to store products data
+-
 
 [↑ Back to Top](#table-of-contents)
 
