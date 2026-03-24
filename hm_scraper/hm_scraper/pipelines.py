@@ -1,58 +1,28 @@
-import psycopg
-from .settings import DB_PARAMS
+from .database import DatabaseService
 
 
 class SaveToRDBMSPipeline:
     def __init__(self):
-        self.connection = None
-        self.cursor = None
+        self.db_service = DatabaseService()
 
     def open_spider(self, spider):
-        """Initialize connection when the spider starts."""
-        # todo: move db logic to separate module
-        try:
-            self.connection = psycopg.connect(
-                user=DB_PARAMS['user'],
-                password=DB_PARAMS['password'],
-                host=DB_PARAMS['host'],
-                dbname=DB_PARAMS['dbname'],
-                port=DB_PARAMS['port'],
-                connect_timeout=4,
-            )
-            self.cursor = self.connection.cursor()
-            spider.logger.info("✅ Database connection successful.")
-        except Exception as e:
-            spider.logger.error(f"❌ Failed to initialize database connection: {e}")
+        """Initialize DB connection and prepare the table when the spider starts."""
+        is_db_connected = self.db_service.connect()
+        is_table_created = self.db_service.create_or_replace_products_table()
+
+        if is_db_connected and is_table_created:
+            spider.logger.info("✅ Database connection successful and products table is initialized.")
+        else:
+            spider.logger.error("❌ Failed to initialize database connection.")
 
     def close_spider(self, spider):
-        """Close connection when the spider finishes."""
-        if self.cursor:
-            self.cursor.close()
-        if self.connection:
-            self.connection.close()
+        self.db_service.close()
 
     def process_item(self, item, spider):
-        if not self.connection or not self.cursor:
-            return item
-
-        try:
-            self.cursor.execute(
-                """
-                INSERT INTO products (name, current_color, price, reviews_count, reviews_score)
-                VALUES (%s, %s, %s, %s, %s)
-                """, (
-                    item.get('name'),
-                    item.get('current_color'),
-                    item.get('price'),
-                    item.get('reviews_count', 0),
-                    item.get('reviews_score', 0.0)
-                )
-            )
-            self.connection.commit()
+        if self.db_service.save_product(item):
             spider.logger.info("✅ Saving to DB successful.")
-        except Exception as e:
-            spider.logger.error(f"❌ Error saving to DB: {e}")
-            self.connection.rollback()
+        else:
+            spider.logger.error("❌ Error saving to DB.")
 
         return item
 
