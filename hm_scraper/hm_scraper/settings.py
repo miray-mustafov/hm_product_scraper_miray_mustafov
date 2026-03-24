@@ -3,6 +3,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+PROXY_USER, PROXY_PASS = os.getenv('PROXY_USER'), os.getenv('PROXY_PASS')
+PROXY_HOST, PROXY_PORT = os.getenv('PROXY_HOST'), os.getenv('PROXY_PORT')
+PROXIES = {
+    'http': f'http://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}',
+    'https': f'https://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}',
+}
+
 BOT_NAME = "hm_scraper"
 
 SPIDER_MODULES = ["hm_scraper.spiders"]
@@ -14,7 +21,7 @@ ADDONS = {}
 # how Scrapy introduces itself to websites
 # Scrapy/Version (+https://scrapy.org)  # basically tells hello I am a bot
 
-# override to look more like a real user and avoid 403 being blocked
+# OVERRIDE Scrapy's default User Agent
 # USER_AGENT = (  # this "ID card" is passed along with the request to a website
 #     "Mozilla/5.0 "  # tells to server "I am a modern browser"
 #     "(Windows NT 10.0; Win64; x64) "  # specifies the os
@@ -39,31 +46,30 @@ DOWNLOAD_DELAY = 1
 # TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {  # another attempt to avoid 403
-#    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-#    "Accept-Language": "en-US,en;q=0.9",
-#    "Upgrade-Insecure-Requests": "1",
+
+# DEFAULT_REQUEST_HEADERS = {
+#     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+#     'Accept-Language': 'en-US,en;q=0.9',
+#     'Accept-Encoding': 'gzip, deflate, br',
+#     'DNT': '1',
+#     'Connection': 'keep-alive',
+#     'Upgrade-Insecure-Requests': '1',
+#     'Sec-Fetch-Dest': 'document',
+#     'Sec-Fetch-Mode': 'navigate',
+#     'Sec-Fetch-Site': 'none',
+#     'Cache-Control': 'max-age=0',
 # }
 
-# Enable or disable spider middlewares
-# See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    "hm_scraper.middlewares.HmScraperSpiderMiddleware": 543,
-# }
+# REMOVE Default request headers entirely (let impersonate handle it)
+# The new Asyncio Event Loop is REQUIRED for curl_cffi / impersonate to work properly!
 
-# Enable or disable downloader middlewares
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    # "hm_scraper.middlewares.HmScraperDownloaderMiddleware": 543,
+    "hm_scraper.middlewares.HmScraperDownloaderMiddleware": 100,
 
-    # provides 2k+ common user agents, which are looped through and attached to a request until success is achieved
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,  # turn off scrapy's default user agent
+    # Must be None to prevent conflicts
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
 }
-
-# Enable or disable extensions
-# See https://docs.scrapy.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
 #    "scrapy.extensions.telnet.TelnetConsole": None,
 # }
 

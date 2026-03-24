@@ -1,5 +1,5 @@
 from scrapy import signals
-
+from settings import PROXIES
 
 class HmScraperSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -58,15 +58,9 @@ class HmScraperDownloaderMiddleware:
         return s
 
     def process_request(self, request, spider):
-        # Called for each request that goes through the downloader
-        # middleware.
+        proxy_url = PROXIES.get('http')
+        request.meta['proxy'] = proxy_url
 
-        # Must either:
-        # - return None: continue processing this request
-        # - or return a Response object
-        # - or return a Request object
-        # - or raise IgnoreRequest: process_exception() methods of
-        #   installed downloader middleware will be called
         return None
 
     def process_response(self, request, response, spider):

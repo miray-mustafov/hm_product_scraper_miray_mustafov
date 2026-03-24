@@ -7,7 +7,9 @@ from ..items import HmProductItem
 class ProductSpider(scrapy.Spider):
     name = "product_spider"
     allowed_domains = ["hm.com"]
+
     start_urls = ["https://www2.hm.com/bg_bg/productpage.1274171042.html"]
+
 
     @staticmethod
     def _get_response_data_as_dict(response) -> dict:
@@ -71,14 +73,18 @@ class ProductSpider(scrapy.Spider):
         return scrapy.Request(
             url=f"https://www2.hm.com/bg_bg/reviews/rrs/ugcsummary?sku={sku}",
             callback=self._parse_item_reviews,
-            meta={"item": item},
-            headers={
-                "Accept": "application/json",
-                "Content-Type": "application/json",
+            meta={
+                "item": item,
+                "impersonate": "chrome124",
+                "impersonate_args": {
+                    "default_headers": True
+                }
             },
         )
 
     def parse(self, response):  # parse = extract, convert
+        self.logger.info(f"IP: {response.text.strip()}")  # todo
+
         item = HmProductItem()
         data: dict = self._get_response_data_as_dict(response)
 
