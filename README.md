@@ -1,4 +1,4 @@
-<p align="left"><img src="media/project_logo.png" alt="project_logo" width="300"></p>
+<p align="left"><img src="media/project_logo.png" alt="project_logo" width="400"></p>
 
 ## Table of contents
 
@@ -70,20 +70,22 @@
 
 ## Project Overview
 
-<span style="color: #888; font-size: 12px;">
-Summary: Web scraper for extracting products data from H&M's website <br>
-Tech: Scrapy
-</span><br><br>
+#### Summary:
+- Web scraper for extracting products data from H&M's website
+
+#### Tech:
+- Scrapy, 
 
 #### Key Technical Implementations:
 
-- Avoid being blocked when requesting sites with a bot:
-    - Avoid using the same user agent by looping through many when requesting:  
-      see [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py)
-    - Avoid using the same IP address by rotating them using proxy servers:   
-      see [todo]()
-
-- PyCharm debugger configured for optimal debugging: `hm_scraper`
+- **User-Agent Rotation:** Integrated [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py) that rotates between 2,000+ browser identifiers, preventing
+      fingerprinting.  
+  <br>
+- **Proxy IP Rotation:** Integrated proxy rotation to avoid IP-based blocks.
+  - *Note:* Despite testing 3 providers, H&M's protection currently holds the line.
+  - *Status:* Ongoing development is tracked in the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
+  <br>
+- **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml) for direct Scrapy execution and breakpoints within the IDE.
 
 #### Upcoming Features:
 
