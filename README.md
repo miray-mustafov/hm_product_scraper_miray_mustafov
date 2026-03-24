@@ -72,7 +72,9 @@
 
 #### Summary:
 
-- Web scraper for extracting products data from H&M's website
+- Web scraper for extracting product data from H&M's website. 
+  Developed as a practical introduction to scraping with Scrapy, facing 
+  real-world challenges such as anti-bot protection, proxy usage, and data processing.
 
 #### Tech:
 
