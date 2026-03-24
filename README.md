@@ -94,12 +94,14 @@
 - **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml)
   for direct Scrapy execution and breakpoints within the IDE.  
   <br>
-- Database: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
-  the item data in a `PostgreSQL` database running on a `Docker` container
+- **Database**: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
+  the item data in a `PostgreSQL` database running on a `Docker` container  
+  <br>
+- **Error handling & Logging**: added in [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py)
 
 #### Upcoming Features:
 
--
+- Ruff code formatting, Testing, CI/CD, Deployment
 
 [↑ Back to Top](#table-of-contents)
 
@@ -111,11 +113,12 @@
 hm_product_scraper_miray_mustafov/
 ├── hm_scraper/                     # project source root directory (contains scrapy.cfg)
 │   ├── hm_scraper/                 # project's python module (actual app code)
+│   │   ├── database.py             # [Load] db access layer
 │   │   ├── items.py                # templates for how our items/products should look
 │   │   ├── middlewares.py          # hooks for modifying requests/responses
-│   │   ├── pipelines.py            # logic for processing scraped items
+│   │   ├── pipelines.py            # [Transform] logic for processing scraped items
 │   │   ├── settings.py             # global configurations for the app
-│   │   └── spiders/                
+│   │   └── spiders/                # [Extract] data
 │   │       ├── product_spider.py   # main spider to crawl and parse H&M products
 │   ├── results/                    # place for the export results (JSON, CSV, etc.)
 │   └── scrapy.cfg                  
@@ -185,8 +188,17 @@ uv sync
 ```shell
 uv run scrapy crawl product_spider -O results/product_data_result.json
 ```
-
 > Results will be saved here: 📂 [results](hm_scraper/results)
+
+<br>
+
+#### If you want to set up also the PostgreSQL database with Docker
+
+1. Make sure Docker Desktop is installed and running.
+2. Create a `.env` file in the project root by copying `.env.example`.
+3. [Optional] Update the database values in `.env`.
+4. Create the PostgreSQL container using the command from [.env.example](.env.example).
+
 
 [↑ Back to Top](#table-of-contents)
 
