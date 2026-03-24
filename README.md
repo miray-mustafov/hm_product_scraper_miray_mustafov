@@ -71,25 +71,37 @@
 ## Project Overview
 
 #### Summary:
+
 - Web scraper for extracting products data from H&M's website
 
 #### Tech:
-- Scrapy, 
+
+- <img src="media/scrapy_icon.svg" width="26" height="26" valign="middle">Scrapy,
+  <img src="media/postgresql_icon.svg" width="18" height="18" valign="middle"> PostgreSQL,
+  <img src="media/docker_icon.svg" width="18" height="18" valign="middle"> Docker,
 
 #### Key Technical Implementations:
 
-- **User-Agent Rotation:** Integrated [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py) that rotates between 2,000+ browser identifiers, preventing
-      fingerprinting.  
+- **User-Agent Rotation:** Integrated [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py) that rotates
+  between 2,000+ browser identifiers, preventing
+  fingerprinting.  
   <br>
 - **Proxy IP Rotation:** Integrated proxy rotation to avoid IP-based blocks.
-  - *Note:* Despite testing 3 providers, H&M's protection currently holds the line.
-  - *Status:* Ongoing development is tracked in the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
+    - *Note:* Despite testing 3 providers, H&M's protection currently holds the line.
+    - *Status:* Ongoing development is tracked in
+      the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
+      <br>
+- **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml)
+  for direct Scrapy execution and breakpoints within the IDE.  
   <br>
-- **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml) for direct Scrapy execution and breakpoints within the IDE.
+- **Database**: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
+  the item data in a `PostgreSQL` database running on a `Docker` container  
+  <br>
+- **Error handling & Logging**: added in [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py)
 
 #### Upcoming Features:
 
-- Configure RDBMS like PostgreSQL to store products data
+- Ruff code formatting, Testing, CI/CD, Deployment
 
 [↑ Back to Top](#table-of-contents)
 
@@ -101,11 +113,12 @@
 hm_product_scraper_miray_mustafov/
 ├── hm_scraper/                     # project source root directory (contains scrapy.cfg)
 │   ├── hm_scraper/                 # project's python module (actual app code)
+│   │   ├── database.py             # [Load] db access layer
 │   │   ├── items.py                # templates for how our items/products should look
 │   │   ├── middlewares.py          # hooks for modifying requests/responses
-│   │   ├── pipelines.py            # logic for processing scraped items
+│   │   ├── pipelines.py            # [Transform] logic for processing scraped items
 │   │   ├── settings.py             # global configurations for the app
-│   │   └── spiders/                
+│   │   └── spiders/                # [Extract] data
 │   │       ├── product_spider.py   # main spider to crawl and parse H&M products
 │   ├── results/                    # place for the export results (JSON, CSV, etc.)
 │   └── scrapy.cfg                  
@@ -175,8 +188,17 @@ uv sync
 ```shell
 uv run scrapy crawl product_spider -O results/product_data_result.json
 ```
-
 > Results will be saved here: 📂 [results](hm_scraper/results)
+
+<br>
+
+#### If you want to set up also the PostgreSQL database with Docker
+
+1. Make sure Docker Desktop is installed and running.
+2. Create a `.env` file in the project root by copying `.env.example`.
+3. [Optional] Update the database values in `.env`.
+4. Create the PostgreSQL container using the command from [.env.example](.env.example).
+
 
 [↑ Back to Top](#table-of-contents)
 
