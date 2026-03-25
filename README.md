@@ -97,7 +97,9 @@
   for direct Scrapy execution and breakpoints within the IDE.  
   <br>
 - **Database**: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
-  the item data in a `PostgreSQL` database running on a `Docker` container  
+  the item data in a `PostgreSQL` database running on a `Docker` container
+  - *Note:* Current database schema is simplified for initial setup testing. It can be optimized
+    by normalization techniques (one-to-many relationships, many-to-many junction tables, etc.)  
   <br>
 - **Error handling & Logging**: added in [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py)
 
@@ -188,7 +190,7 @@ uv sync
 #### 🚀 Run the app from `hm_product_scraper_miray_mustafov/hm_scraper`:
 
 ```shell
-uv run scrapy crawl product_spider -O results/product_data_result.json
+uv run scrapy crawl product_spider -O results/products_data_result.json
 ```
 > Results will be saved here: 📂 [results](hm_scraper/results)
 

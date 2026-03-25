@@ -1,6 +1,7 @@
 temporary/
 *temporary.py
 *result.json
+urls_for_scraping.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
