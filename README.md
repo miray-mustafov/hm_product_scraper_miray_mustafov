@@ -78,9 +78,9 @@
 
 #### Tech:
 
-- <img src="media/scrapy_icon.svg" width="26" height="26" valign="middle">Scrapy,
-  <img src="media/postgresql_icon.svg" width="18" height="18" valign="middle"> PostgreSQL,
-  <img src="media/docker_icon.svg" width="18" height="18" valign="middle"> Docker,
+- <img src="media/scrapy_icon.svg" width="22" height="22" valign="middle"> Scrapy,
+  <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL,
+  <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker,
 
 #### Key Technical Implementations:
 
@@ -90,7 +90,7 @@
   <br>
 - **Proxy IP Rotation:** Integrated proxy rotation to avoid IP-based blocks.
     - *Note:* Despite testing 3 providers, H&M's protection currently holds the line.
-    - *Status:* Ongoing development is tracked in
+    - *Status:* Ongoing development is tracked on
       the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
       <br>
 - **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml)
