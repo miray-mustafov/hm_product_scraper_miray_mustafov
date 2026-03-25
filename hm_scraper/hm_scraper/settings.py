@@ -10,7 +10,8 @@ DB_PARAMS = {
     'password': os.getenv('DB_PASS'),
     'host': os.getenv('DB_HOST'),
     'dbname': os.getenv('DB_NAME'),
-    'port': os.getenv('DB_PORT')
+    'port': os.getenv('DB_PORT'),
+    'db_connection_timeout': os.getenv('DB_CONNECTION_TIMEOUT'),
 }
 
 BOT_NAME = "hm_scraper"

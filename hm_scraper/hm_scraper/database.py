@@ -3,8 +3,6 @@ from .settings import DB_PARAMS
 
 
 class DatabaseService:
-    CONNECTION_TIMEOUT = 4
-
     def __init__(self):
         self.connection = None
         self.cursor = None
@@ -17,7 +15,7 @@ class DatabaseService:
                 host=DB_PARAMS['host'],
                 dbname=DB_PARAMS['dbname'],
                 port=DB_PARAMS['port'],
-                connect_timeout=self.CONNECTION_TIMEOUT,
+                connect_timeout=DB_PARAMS['db_connection_timeout'],
             )
             self.cursor = self.connection.cursor()
             return True

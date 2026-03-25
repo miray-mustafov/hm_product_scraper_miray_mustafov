@@ -97,7 +97,9 @@
   for direct Scrapy execution and breakpoints within the IDE.  
   <br>
 - **Database**: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
-  the item data in a `PostgreSQL` database running on a `Docker` container  
+  the item data in a `PostgreSQL` database running on a `Docker` container
+  - *Note:* Current database schema is simplified for initial setup testing. It can be optimized
+    by normalization techniques (one-to-many relationships, many-to-many junction tables, etc.)  
   <br>
 - **Error handling & Logging**: added in [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py)
 
