@@ -61,8 +61,7 @@
 
 #### 4. Send solution
 
-- Provide the solution as a link to GitHub/GitLab repository to  
-  `anton.popov@edited.com` and `stanislav.milchev@edited.com`
+- Provide the solution as a link to GitHub/GitLab repository.
 
 [↑ Back to Top](#table-of-contents)
 
@@ -101,7 +100,8 @@
   - *Note:* Current database schema is simplified for initial setup testing. It can be optimized
     by normalization techniques (one-to-many relationships, many-to-many junction tables, etc.)  
   <br>
-- **Error handling & Logging**: added in [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py)
+- **Error handling & Logging**: For stability, debugging, monitoring, tracability  
+  [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py), [@staticmethods](hm_scraper/hm_scraper/spiders/product_spider.py)
 
 #### Upcoming Features:
 
