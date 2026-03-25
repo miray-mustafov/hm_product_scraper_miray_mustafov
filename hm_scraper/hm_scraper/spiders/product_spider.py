@@ -2,7 +2,7 @@ import scrapy
 import json
 from decimal import Decimal
 from ..items import HmProductItem
-from ..settings import URLS_FOR_SCRAPING
+from ..utils import yield_urls_for_scraping
 
 
 class ProductSpider(scrapy.Spider):
@@ -14,8 +14,7 @@ class ProductSpider(scrapy.Spider):
         Dynamically fetching and passing the urls for scraping
         Defining which pages the spider should crawl
         """
-        for url in URLS_FOR_SCRAPING:
-            # passing urls one by one to avoid loading a huge list of links in the memory
+        for url in yield_urls_for_scraping():
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):  # parse, extract, convert

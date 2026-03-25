@@ -101,7 +101,10 @@
     by normalization techniques (one-to-many relationships, many-to-many junction tables, etc.)  
   <br>
 - **Error handling & Logging**: For stability, debugging, monitoring, tracability  
-  [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py), [@staticmethods](hm_scraper/hm_scraper/spiders/product_spider.py)
+  [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py), [@staticmethods](hm_scraper/hm_scraper/spiders/product_spider.py)  
+  <br>
+- **Memory Efficiency**: Used a **Generator** to pass urls one by one, avoiding loading full URL lists into RAM.  
+  [yield_urls_for_scraping()](hm_scraper/hm_scraper/utils.py)
 
 #### Upcoming Features:
 
