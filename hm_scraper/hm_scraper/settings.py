@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from .utils import load_urls_for_scraping
 
 load_dotenv()
 
@@ -13,6 +14,8 @@ DB_PARAMS = {
     'port': os.getenv('DB_PORT'),
     'db_connection_timeout': os.getenv('DB_CONNECTION_TIMEOUT'),
 }
+
+URLS_FOR_SCRAPING = load_urls_for_scraping()
 
 BOT_NAME = "hm_scraper"
 
@@ -81,7 +84,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # "hm_scraper.pipelines.HmScraperPipeline": 300,
+    # "hm_scraper.pipelines.HmScraperPipeline": 300,
     "hm_scraper.pipelines.SaveToRDBMSPipeline": 300,
 }
 

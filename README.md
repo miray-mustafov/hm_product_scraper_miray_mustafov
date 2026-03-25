@@ -190,7 +190,7 @@ uv sync
 #### 🚀 Run the app from `hm_product_scraper_miray_mustafov/hm_scraper`:
 
 ```shell
-uv run scrapy crawl product_spider -O results/product_data_result.json
+uv run scrapy crawl product_spider -O results/products_data_result.json
 ```
 > Results will be saved here: 📂 [results](hm_scraper/results)
 
