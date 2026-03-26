@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="hm_scraper_debug" type="PythonConfigurationType" factoryName="Python">
+  <configuration default="false" name="product_spider" type="PythonConfigurationType" factoryName="Python">
     <module name="hm_product_scraper_miray_mustafov" />
     <option name="ENV_FILES" value="$PROJECT_DIR$/.env" />
     <option name="INTERPRETER_OPTIONS" value="" />

@@ -15,7 +15,7 @@ class SaveToRDBMSPipeline:
         else:
             spider.logger.error("❌ Failed to initialize database connection.")
 
-    def close_spider(self, spider):
+    def close_spider(self):
         self.db_service.close()
 
     def process_item(self, item, spider):

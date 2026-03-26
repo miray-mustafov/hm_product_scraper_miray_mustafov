@@ -57,12 +57,6 @@
         }
         ```
 
-<br>
-
-#### 4. Send solution
-
-- Provide the solution as a link to GitHub/GitLab repository.
-
 [↑ Back to Top](#table-of-contents)
 
 ---
@@ -71,15 +65,16 @@
 
 #### Summary:
 
-- Web scraper for extracting product data from H&M's website. 
-  Developed as a practical introduction to scraping with Scrapy, facing 
+- Web scraper for extracting product data from H&M's website.
+  Developed as a practical introduction to scraping with Scrapy, facing
   real-world challenges such as anti-bot protection, proxy usage, and data processing.
 
 #### Tech:
 
-- <img src="media/scrapy_icon.svg" width="22" height="22" valign="middle"> Scrapy,
-  <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL,
-  <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker,
+- <img src="media/scrapy_icon.svg" width="22" height="22" valign="middle"> Scrapy &nbsp
+  <img src="media/playwright_icon.svg" width="23" height="23" valign="middle"> Playwright &nbsp
+  <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL &nbsp
+  <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker &nbsp
 
 #### Key Technical Implementations:
 
@@ -97,9 +92,9 @@
   <br>
 - **Database**: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
   the item data in a `PostgreSQL` database running on a `Docker` container
-  - *Note:* Current database schema is simplified for initial setup testing. It can be optimized
-    by normalization techniques (one-to-many relationships, many-to-many junction tables, etc.)  
-  <br>
+    - *Note:* Current database schema is simplified for initial setup testing. It can be optimized
+      by normalization techniques (one-to-many relationships, many-to-many junction tables, etc.)  
+      <br>
 - **Error handling & Logging**: For stability, debugging, monitoring, tracability  
   [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py), [@staticmethods](hm_scraper/hm_scraper/spiders/product_spider.py)  
   <br>
@@ -186,6 +181,17 @@ uv sync
 
 <br>
 
+#### Install Playwright binaries for launching a browser app:
+
+```shell
+uv run playwright install chromium
+```
+
+- they will be stored on your computer somewhere at:  
+  `C:\Users\<user>\AppData\Local\ms-playwright`
+
+<br>
+
 #### Create a copy of `.env.example` file and name it `.env`:
 
 <br>
@@ -195,6 +201,7 @@ uv sync
 ```shell
 uv run scrapy crawl product_spider -O results/products_data_result.json
 ```
+
 > Results will be saved here: 📂 [results](hm_scraper/results)
 
 <br>
@@ -205,7 +212,6 @@ uv run scrapy crawl product_spider -O results/products_data_result.json
 2. Create a `.env` file in the project root by copying `.env.example`.
 3. [Optional] Update the database values in `.env`.
 4. Create the PostgreSQL container using the command from [.env.example](.env.example).
-
 
 [↑ Back to Top](#table-of-contents)
 
