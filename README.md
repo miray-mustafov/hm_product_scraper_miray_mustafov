@@ -5,6 +5,8 @@
 * [Task Description](#task-description)
 * [Project Overview](#project-overview)
 * [Folder Structure](#folder-structure)
+* [Scrapy Architecture Diagram](#scrapy-architecture-diagram)
+* [Scrapy Execution Flow](#scrapy-execution-flow)
 * [Setup](#setup)
 * [Useful Stuff](#useful-stuff)
 
@@ -129,6 +131,79 @@ Helper terminal command for generating the tree:
 ```
 uv run python -m directory_tree -I temporary .venv media __pycache__ __init__.py
 ```
+
+[↑ Back to Top](#table-of-contents)
+
+---
+
+## Scrapy Architecture Diagram
+
+```mermaid
+flowchart LR
+    A(Spider) -- 1 . Request --> B{Scrapy Engine}
+    B -- 2 . Request --> C(Downloader Middlewares)
+    C -- 3 . Request --> D(Downloader)
+    D -- 4 . Request --> I([Web Server])
+    I -- 5 . Response --> D
+    D -- 6 . Response --> C(Downloader Middlewares)
+    C -- 7 . Response --> B
+    B -- 8 . Response --> A
+    A -- 9 . Item --> G(Item Pipeline)
+    G -- 10 . Data --> H[(Database)]
+```
+
+## Scrapy Execution Flow
+
+1. **Spider Request**: [Spider.start_requests()](hm_scraper/hm_scraper/spiders/product_spider.py)  
+   The spider is initialized with `settings.py` and creates a request object with:
+    - URL
+    - HTTP method
+    - headers (e.g. User-Agent, Accept)
+    - callback (specify a parse method that will handle the response later)
+    - etc.
+
+   The request is passed to the Scrapy Engine
+
+<br>
+
+2. **Scrapy Engine**:  
+   Controlls data flow between all components and triggers actions on certain events.
+
+<br>
+
+3. **Request processing**: [process_request() in middlewares.py](hm_scraper/hm_scraper/middlewares.py)  
+   The requests are processed by the downloader middlewares f.e.:
+    - changing/rotating request headers like user-agent
+    - retrying failed requests
+    - dealing with anti-bot behavior
+
+   Then the request is sent by the downloader engine in the network layer.
+
+<br>
+
+4. **Response receiving**: [process_response() in middlewares.py](hm_scraper/hm_scraper/middlewares.py)  
+   The downloader receives the response and passes it to downloader middlewares that do processing like:
+    - detecting bad responses
+    - applying security logic
+    - blocking/filtering pages you don’t want
+
+   Then the response is sent to the spider for parsing/processing.
+
+<br>
+
+5. **Response parsing**: [Spider.parse()](hm_scraper/hm_scraper/spiders/product_spider.py)  
+   The spider parses the response and extracts items/data, which are then passed to the item pipeline.
+
+<br>
+
+6. **Item processing**: [pipelines.py](hm_scraper/hm_scraper/pipelines.py)  
+   The item pipeline processes the item
+    - transformation, validation, cleaning, storage (DB, file), etc.
+
+<br>
+
+7. **Closing**:  
+   When no more requests remain, the spider and downloader are closed and the process ends.
 
 [↑ Back to Top](#table-of-contents)
 
