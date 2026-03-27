@@ -12,12 +12,11 @@
 
 ## Task Description
 
-> 🤖 You can use AI tools, but we will ask questions around scrapy and the problems you faced during the process
+> 🤖 AI tools are allowed, but be able to answer questions around Scrapy and the problems you faced during the process
 
 #### 1. Introduction
 
-- As part of the team, you'll be responsible for keeping millions of products up to date.
-  Using the python Scrapy framework, go to https://www2.hm.com/bg_bg/productpage.1274171042.html
+- Using the python Scrapy framework, go to https://www2.hm.com/bg_bg/productpage.1274171042.html
   and retrieve **single** product information about its:
     - name
     - selected color
@@ -71,10 +70,10 @@
 
 #### Tech:
 
-- <img src="media/scrapy_icon.svg" width="22" height="22" valign="middle"> Scrapy &nbsp
-  <img src="media/playwright_icon.svg" width="23" height="23" valign="middle"> Playwright &nbsp
-  <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL &nbsp
-  <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker &nbsp
+- <img src="media/scrapy_icon.svg" width="22" height="22" valign="middle"> Scrapy
+  <img src="media/playwright_icon.svg" width="23" height="23" valign="middle"> Playwright
+  <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL
+  <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker
 
 #### Key Technical Implementations:
 
@@ -87,8 +86,7 @@
     - *Status:* Ongoing development is tracked on
       the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
       <br>
-- **PyCharm Debugger Configuration:** Configured [hm_scraper_debug](.run/hm_scraper_debug.run.xml)
-  for direct Scrapy execution and breakpoints within the IDE.  
+- **PyCharm Debugger Configuration:** For convenient Scrapy execution debugging [.run](.run)  
   <br>
 - **Database**: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
   the item data in a `PostgreSQL` database running on a `Docker` container
