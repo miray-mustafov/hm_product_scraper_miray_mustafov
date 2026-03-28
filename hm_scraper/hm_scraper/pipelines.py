@@ -11,7 +11,9 @@ class SaveToRDBMSPipeline:
         is_table_created = self.db_service.create_or_replace_products_table()
 
         if is_db_connected and is_table_created:
-            spider.logger.info("✅ Database connection successful and products table is initialized.")
+            spider.logger.info(
+                "✅ Database connection successful and products table is initialized."
+            )
         else:
             spider.logger.error("❌ Failed to initialize database connection.")
 
@@ -25,6 +27,7 @@ class SaveToRDBMSPipeline:
             spider.logger.error("❌ Error saving to DB.")
 
         return item
+
 
 # from itemadapter import ItemAdapter
 # class HmScraperPipeline:

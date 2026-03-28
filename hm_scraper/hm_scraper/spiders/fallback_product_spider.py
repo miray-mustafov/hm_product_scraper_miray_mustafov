@@ -1,6 +1,8 @@
-import scrapy
 import json
 from decimal import Decimal
+
+import scrapy
+
 from ..items import HmProductItem
 from ..utils import yield_urls_for_scraping
 
@@ -11,7 +13,9 @@ class FallbackProductSpider(scrapy.Spider):
     """
 
     name = "fallback_product_spider"
-    allowed_domains = ["hm.com"]  # restricts this spider to hm.com so it does not crawl other domains by accident
+    allowed_domains = [
+        "hm.com"
+    ]  # restricts this spider to hm.com so it does not crawl other domains by accident
 
     def start_requests(self):
         """
@@ -32,14 +36,16 @@ class FallbackProductSpider(scrapy.Spider):
         item = HmProductItem()
         data: dict = self._get_response_data_as_dict(response)
 
-        item['name'] = data.get('name')
-        item['price']: Decimal = self._get_price(response)
-        item['current_color'] = self._get_current_color(response)
-        item['available_colors'] = self._get_available_colors(data)
+        item["name"] = data.get("name")
+        item["price"]: Decimal = self._get_price(response)
+        item["current_color"] = self._get_current_color(response)
+        item["available_colors"] = self._get_available_colors(data)
 
         yield self._request_reviews_to_apply_count_and_score(response, item)
 
-    def _request_reviews_to_apply_count_and_score(self, response, item) -> scrapy.Request:
+    def _request_reviews_to_apply_count_and_score(
+        self, response, item
+    ) -> scrapy.Request:
         """
         Requesting ugcsummary endpoint to get current product reviews data
         """
@@ -75,8 +81,8 @@ class FallbackProductSpider(scrapy.Spider):
         SKU = Stock Keeping Unit (an id that shows the specific variant of a product) = 1274171042001
         [1274171]+[042]+[001] = [product_id]+[color_id(Бял/Fleuri)]+[size_id(XXS)]
         """
-        XXS_size_code = '001'  # noticed that H&M always pick the smallest size when requesting ugcsummary
-        product_and_color_code = response.url.split('productpage.')[1].split('.html')[0]
+        XXS_size_code = "001"  # noticed that H&M always pick the smallest size when requesting ugcsummary
+        product_and_color_code = response.url.split("productpage.")[1].split(".html")[0]
         if not product_and_color_code or not XXS_size_code:
             raise ValueError("❌ Error: SKU could not be generated")
 
@@ -102,25 +108,25 @@ class FallbackProductSpider(scrapy.Spider):
         if not price_text:
             raise ValueError("❌ Error: Price not found on the page.")
 
-        price_string = price_text.split(' ')[-2]
-        price_comma_replaced = price_string.replace(',', '.')
+        price_string = price_text.split(" ")[-2]
+        price_comma_replaced = price_string.replace(",", ".")
         price = Decimal(price_comma_replaced)
         return price
 
     @staticmethod
     def _get_current_color(response):
-        title = response.xpath('//title/text()').get()
-        if not title or ' - ' not in title:
+        title = response.xpath("//title/text()").get()
+        if not title or " - " not in title:
             raise ValueError("❌ Error: Problem with getting current color")
 
-        return title.split(' - ')[1].split(' - ')[0]
+        return title.split(" - ")[1].split(" - ")[0]
 
     @staticmethod
     def _get_available_colors(data):  # O(n)
-        variants = data.get('hasVariant', [])
-        colors = set()  # set structure to eliminate duplicates efficiently with O1 lookups
+        variants = data.get("hasVariant", [])
+        colors = set()
         for v in variants:
-            if v.get('color'):
-                colors.add(v.get('color'))
+            if v.get("color"):
+                colors.add(v.get("color"))
 
         return list(colors)

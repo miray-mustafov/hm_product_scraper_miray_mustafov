@@ -1,4 +1,5 @@
 import psycopg
+
 from .settings import DB_PARAMS
 
 
@@ -10,12 +11,12 @@ class DatabaseService:
     def connect(self):
         try:
             self.connection = psycopg.connect(
-                user=DB_PARAMS['user'],
-                password=DB_PARAMS['password'],
-                host=DB_PARAMS['host'],
-                dbname=DB_PARAMS['dbname'],
-                port=DB_PARAMS['port'],
-                connect_timeout=DB_PARAMS['db_connection_timeout'],
+                user=DB_PARAMS["user"],
+                password=DB_PARAMS["password"],
+                host=DB_PARAMS["host"],
+                dbname=DB_PARAMS["dbname"],
+                port=DB_PARAMS["port"],
+                connect_timeout=DB_PARAMS["db_connection_timeout"],
             )
             self.cursor = self.connection.cursor()
             return True
@@ -37,13 +38,14 @@ class DatabaseService:
                 """
                 INSERT INTO products (name, current_color, price, reviews_count, reviews_score)
                 VALUES (%s, %s, %s, %s, %s)
-                """, (
-                    item.get('name'),
-                    item.get('current_color'),
-                    item.get('price'),
-                    item.get('reviews_count', 0),
-                    item.get('reviews_score', 0.0)
-                )
+                """,
+                (
+                    item.get("name"),
+                    item.get("current_color"),
+                    item.get("price"),
+                    item.get("reviews_count", 0),
+                    item.get("reviews_score", 0.0),
+                ),
             )
             self.connection.commit()
             return True

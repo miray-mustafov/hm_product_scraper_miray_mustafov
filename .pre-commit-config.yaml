@@ -1,0 +1,16 @@
+default_language_version:
+  python: python3.13
+repos:
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.13.9
+    hooks: # hook for enforcing conventional commits
+      - id: commitizen
+        stages: [ commit-msg ]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.8
+    hooks: # hook to automate code formatting and checking
+      - id: ruff  # run the linter.
+        args: [ --fix ]
+      - id: ruff-format  # run the formatter.
+        stages: [ pre-commit ] # could be omitted bcs it is implied

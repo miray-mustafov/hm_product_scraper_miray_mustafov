@@ -1,6 +1,8 @@
-import scrapy
 import re
 from decimal import Decimal
+
+import scrapy
+
 from ..items import HmProductItem
 from ..utils import yield_urls_for_scraping
 
@@ -21,30 +23,32 @@ class ProductSpider(scrapy.Spider):
                 meta={
                     "playwright": True,
                     "playwright_include_page": True,
-                }
+                },
             )
 
     async def parse(self, response):
         page = response.meta["playwright_page"]  # get the live browser page object
         # to ensure that we will have the colors available for extraction
-        await page.wait_for_selector('div[data-testid="color-selector-wrapper"] div[data-testid="grid"]')
+        await page.wait_for_selector(
+            'div[data-testid="color-selector-wrapper"] div[data-testid="grid"]'
+        )
         content = await page.content()
         selector = scrapy.Selector(text=content)
 
         item = HmProductItem()
-        item['name'] = self._get_name(selector)
-        item['price'] = self._get_price(selector)
-        item['current_color'] = self._get_current_color(selector)
-        item['available_colors'] = self._get_available_colors(selector)
-        item['reviews_count'] = self._get_reviews_count(selector)
-        item['reviews_score'] = self._get_reviews_score(selector)
+        item["name"] = self._get_name(selector)
+        item["price"] = self._get_price(selector)
+        item["current_color"] = self._get_current_color(selector)
+        item["available_colors"] = self._get_available_colors(selector)
+        item["reviews_count"] = self._get_reviews_count(selector)
+        item["reviews_score"] = self._get_reviews_score(selector)
 
         await page.close()
         yield item
 
     @staticmethod
     def _get_name(selector):
-        name = selector.css('h1::text').get().strip()
+        name = selector.css("h1::text").get().strip()
         if not name:
             raise ValueError("❌ Error: Problem getting current name")
 
@@ -53,10 +57,10 @@ class ProductSpider(scrapy.Spider):
     @staticmethod
     def _get_price(selector) -> Decimal:
         price_text = selector.css('span[data-testid="white-price"]::text').get()
-        pattern = r'[\d,]+(?=\s*€)'
+        pattern = r"[\d,]+(?=\s*€)"
 
         try:
-            price_str = re.search(pattern, price_text).group().replace(',', '.')
+            price_str = re.search(pattern, price_text).group().replace(",", ".")
             price = Decimal(price_str)
         except Exception:
             raise ValueError("❌ Error: Problem getting current price")
@@ -75,7 +79,9 @@ class ProductSpider(scrapy.Spider):
 
     @staticmethod
     def _get_available_colors(selector):
-        available_colors = selector.xpath('//div[@data-testid="grid"]//a[@role="radio"]/@title').getall()
+        available_colors = selector.xpath(
+            '//div[@data-testid="grid"]//a[@role="radio"]/@title'
+        ).getall()
 
         if not available_colors:
             raise ValueError("❌ Error: Problem getting available colors")
@@ -89,7 +95,9 @@ class ProductSpider(scrapy.Spider):
             reviews_count_label = selector.xpath(
                 '//div[@data-testid="product-reviews"]//button[contains(@aria-label, "Коментари")]/@aria-label'
             ).get()
-            reviews_count_str = re.search(r"(?<=\[)\d+(?=\])", reviews_count_label).group()
+            reviews_count_str = re.search(
+                r"(?<=\[)\d+(?=\])", reviews_count_label
+            ).group()
             reviews_count = int(reviews_count_str)
         except Exception:
             raise ValueError("❌ Error: Problem getting reviews count")
