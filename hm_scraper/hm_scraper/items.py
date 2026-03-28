@@ -7,6 +7,7 @@ class HmProductItem(scrapy.Item):
     Why: to enforce a frame what our product should look like to avoid mistakes
     An instance provides a dictionary-like behavior with extra metadata info
     """
+
     name = scrapy.Field()
     price = scrapy.Field()
     current_color = scrapy.Field()

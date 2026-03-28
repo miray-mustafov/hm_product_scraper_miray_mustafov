@@ -1,4 +1,4 @@
-<p align="left"><img src="media/project_logo.png" alt="project_logo" width="400"></p>
+<img src="media/project_logo.png" alt="project_logo" width="400">
 
 ## Table of contents
 
@@ -72,38 +72,64 @@
 
 #### Tech:
 
-- <img src="media/scrapy_icon.svg" width="22" height="22" valign="middle"> Scrapy
-  <img src="media/playwright_icon.svg" width="23" height="23" valign="middle"> Playwright
-  <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL
-  <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker
+- <span style="white-space: nowrap;">
+    <img src="media/scrapy_icon.svg" width="22" height="22" valign="middle"> Scrapy &nbsp;
+  </span>
+  <span style="white-space: nowrap;">
+    <img src="media/playwright_icon.svg" width="23" height="23" valign="middle"> Playwright &nbsp;
+  </span>  
+  <span style="white-space: nowrap;">
+    <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL &nbsp;
+  </span>
+  <br><br>
+- <span style="white-space: nowrap;">
+    <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker &nbsp;
+  </span>
+  <span style="white-space: nowrap;">
+    <img src="media/ruff_icon.svg" width="21" height="21" valign="middle"> Ruff &nbsp;
+  </span>
+  <span style="white-space: nowrap;">
+    <img src="media/cz_icon.png" width="21" height="21" valign="middle"> Commitizen &nbsp;
+  </span>
 
 #### Key Technical Implementations:
 
-- **User-Agent Rotation:** Integrated [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py) that rotates
+- **User-Agent Rotation:**   
+  Integrated [RandomUserAgentMiddleware](hm_scraper/hm_scraper/settings.py) that rotates
   between 2,000+ browser identifiers, preventing
   fingerprinting.  
   <br>
-- **Proxy IP Rotation:** Integrated proxy rotation to avoid IP-based blocks.
+- **Proxy IP Rotation:**  
+  Integrated proxy rotation to avoid IP-based blocks.
     - *Note:* Despite testing 3 providers, H&M's protection currently holds the line.
     - *Status:* Ongoing development is tracked on
       the [feat/proxy](https://github.com/miray-mustafov/hm_product_scraper_miray_mustafov/tree/feat/proxy) branch.  
       <br>
-- **PyCharm Debugger Configuration:** For convenient Scrapy execution debugging [.run](.run)  
+- **PyCharm Debugger Configuration:**  
+  For convenient Scrapy execution debugging [.run](.run)  
   <br>
-- **Database**: Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
+- **Database**:  
+  Implemented a [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py) that loads
   the item data in a `PostgreSQL` database running on a `Docker` container
     - *Note:* Current database schema is simplified for initial setup testing. It can be optimized
       by normalization techniques (one-to-many relationships, many-to-many junction tables, etc.)  
       <br>
-- **Error handling & Logging**: For stability, debugging, monitoring, tracability  
+- **Error Handling & Logging**:  
+  For stability, debugging, monitoring, tracability  
   [SaveToRDBMSPipeline](hm_scraper/hm_scraper/pipelines.py), [@staticmethods](hm_scraper/hm_scraper/spiders/product_spider.py)  
   <br>
-- **Memory Efficiency**: Used a **Generator** to pass urls one by one, avoiding loading full URL lists into RAM.  
-  [yield_urls_for_scraping()](hm_scraper/hm_scraper/utils.py)
+- **Memory Efficiency**:  
+  Used a **Generator** to pass urls one by one, avoiding loading full URL lists into RAM.  
+  [yield_urls_for_scraping()](hm_scraper/hm_scraper/utils.py)  
+  <br>
+- **Enforcing Best Practices**:  
+  Used Ruff to enforce best practices in code style and quality.  
+  Used Commitizen to enforce Conventional Commits.  
+  Both are automated with pre-commit hooks: [.pre-commit-config.yaml](.pre-commit-config.yaml)
 
 #### Upcoming Features:
 
-- Ruff code formatting, Testing, CI/CD, Deployment
+- Testing, CI/CD, Deployment
 
 [↑ Back to Top](#table-of-contents)
 
@@ -265,6 +291,14 @@ uv run playwright install chromium
 
 <br>
 
+#### Install all hooks from `.pre-commit-config.yaml` in `.git/`;
+
+```shell
+uv run pre-commit install --hook-type commit-msg --hook-type pre-commit
+```
+
+<br>
+
 #### Create a copy of `.env.example` file and name it `.env`:
 
 <br>
@@ -292,23 +326,32 @@ uv run scrapy crawl product_spider -O results/products_data_result.json
 
 ## Useful Stuff
 
-- How to initialize a scrapy project:  
-  ```scrapy startproject <project_name>```
+- **How to start a conventional commit message:**
+    - `cz commit`
 
 
-- How to initialize a scrapy spider:  
-  ```scrapy genspider <spider_name> <your.website.com>```  
-  ```scrapy genspider product_spider hm.com```
+- **How to format and lint check:**
+    - Dry run linter: `uv run ruff check . --show-files` (add --diff to see exact changesgi)
+    - Dry run formatter: `uv run ruff format . --check`
+    - Run linter: `uv run ruff check . --fix` (-v for verbose)
+    - Run formatter: `uv run ruff format .`
 
 
-- How to start scrapy shell:  
-  ```scrapy shell```
+- **How to initialize a scrapy project:**
+    - `scrapy startproject <project_name>`
 
 
-- How to request a URL in Scrapy shell and select elements:  
-  ```fetch('<your_url>')``` creates response object  
-  ```products = response.css('product-item')```
+- **How to initialize a scrapy spider:**
+    - `scrapy genspider <spider_name> <your.website.com>`
+    - `scrapy genspider product_spider hm.com`
+
+
+- **How to start a scrapy shell:**
+    - `scrapy shell`
+
+
+- **How to request a URL in Scrapy shell and select elements:**
+    - Creates response object: `fetch('<your_url>')`
+    - Extract data from the response `products = response.css('product-item')`
 
 [↑ Back to Top](#table-of-contents)
-
----
