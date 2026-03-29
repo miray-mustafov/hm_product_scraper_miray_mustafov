@@ -81,6 +81,9 @@
   <span style="white-space: nowrap;">
     <img src="media/postgresql_icon.svg" width="21" height="21" valign="middle"> PostgreSQL &nbsp;
   </span>
+  <span style="white-space: nowrap;">
+    <img src="media/pytest_icon.svg" width="20" height="20" valign="middle"> Pytest &nbsp;
+  </span>
   <br><br>
 - <span style="white-space: nowrap;">
     <img src="media/docker_icon.svg" width="22" height="22" valign="middle"> Docker &nbsp;
@@ -90,6 +93,9 @@
   </span>
   <span style="white-space: nowrap;">
     <img src="media/cz_icon.png" width="21" height="21" valign="middle"> Commitizen &nbsp;
+  </span>
+  <span style="white-space: nowrap;">
+    <img src="media/uv_icon.svg" width="19" height="19" valign="middle"> UV &nbsp;
   </span>
 
 #### Key Technical Implementations:
