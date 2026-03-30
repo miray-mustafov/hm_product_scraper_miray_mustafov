@@ -27,6 +27,12 @@ class ProductSpider(scrapy.Spider):
             )
 
     async def parse(self, response):
+        """
+        Async lets Playwright:
+        - pause this coroutine while the browser is waiting
+        - keep the event loop free to do other work
+        - avoid blocking the spider on slow page rendering
+        """
         page = response.meta["playwright_page"]  # get the live browser page object
         # to ensure that we will have the colors available for extraction
         await page.wait_for_selector(
